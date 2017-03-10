@@ -2,8 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraController : MonoBehaviour {
+public class CameraController : MonoBehaviour
+{
 
+    public Transform sphere;
+    private Rigidbody rigidbody;
+
+    void Start()
+    {
+        rigidbody = sphere.GetComponent<Rigidbody>();
+    }
+
+    void Update()
+    {
+        Vector3 vector = new Vector3(0, 3f, -5f);
+        float velocity = rigidbody.velocity.sqrMagnitude;
+        vector = vector * (1f + velocity / 25f);
+
+        Vector3 newPosition = sphere.position + vector;
+
+        transform.position = Vector3.Lerp(transform.position, newPosition, Time.deltaTime * 1f);
+        transform.LookAt(sphere);
+    }
+
+    /*
     public GameObject player;
     private Vector3 offset;
 
@@ -16,4 +38,5 @@ public class CameraController : MonoBehaviour {
 	void LateUpdate () {
         transform.position = player.transform.position + offset;
 	}
+    */
 }
