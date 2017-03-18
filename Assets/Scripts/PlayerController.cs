@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour {
     private int count;
     public Text countText;
     public Text winText;
+    public GameObject particles;
 
     private Rigidbody rb;
     void Start()
@@ -33,6 +34,7 @@ public class PlayerController : MonoBehaviour {
     {
         if (other.gameObject.CompareTag("Pick Up"))
         {
+            Instantiate(particles, transform.position, Quaternion.identity);
             other.gameObject.SetActive(false);
             count++;
             SetCountText();
